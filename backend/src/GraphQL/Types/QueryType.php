@@ -35,10 +35,25 @@ class QueryType
                 ],
                 'products' => [
                     'type' => Type::listOf(ProductType::get()),
-                    'resolve' => function () {
+                    'args' => [
+                        'categoryId' => ['type' => Type::int()],
+                    ],
+                    'resolve' => function ($rootValue, array $args) {
                         $pdo = Database::getConnection();
-                        $repo = new ProductRepository($pdo);
-                        return $repo->getAll();
+                        $productRepo = new ProductRepository($pdo);
+
+                        if (isset($args['categoryId'])) {
+                            $categoryRepo = new CategoryRepository($pdo);
+                            $allCategory = $categoryRepo->findByName('All');
+
+                            // Ako je poslan categoryId i on NIJE "All", filtriraj
+                            if (!$allCategory || (int) $args['categoryId'] !== $allCategory->getId()) {
+                                return $productRepo->findByCategoryId((int) $args['categoryId']);
+                            }
+                        }
+
+                        // Ako nije poslan ili jeste ali je "All" → vrati sve
+                        return $productRepo->getAll();
                     }
                 ],
                 'product' => [

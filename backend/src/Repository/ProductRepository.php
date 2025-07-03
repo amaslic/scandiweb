@@ -116,4 +116,36 @@ class ProductRepository
 
         return $product;
     }
+
+    /**
+     * @param int $categoryId
+     * @return Product[]
+     */
+    public function findByCategoryId(int $categoryId): array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM products WHERE category_id = :category_id");
+        $stmt->execute(['category_id' => $categoryId]);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $galleryRepo = new ProductGalleryRepository($this->pdo);
+
+        return array_map(function ($row) use ($galleryRepo) {
+            $product = new Product(
+                (int) $row['id'],
+                $row['sku'],
+                $row['name'],
+                (float) $row['price'],
+                (int) $row['category_id'],
+                $row['brand'],
+                (bool) $row['in_stock'],
+                $row['description'],
+                []
+            );
+
+            $gallery = $galleryRepo->findByProductId($product->getId());
+            $product->setGallery(array_map(fn($img) => $img->getImageUrl(), $gallery));
+
+            return $product;
+        }, $rows);
+    }
 }

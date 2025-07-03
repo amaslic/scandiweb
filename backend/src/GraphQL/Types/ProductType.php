@@ -17,7 +17,6 @@ class ProductType extends ObjectType
         parent::__construct([
             'name' => 'Product',
             'fields' => [
-                // Use SKU as ID (to match JSON)
                 'id' => [
                     'type' => Type::nonNull(Type::string()),
                     'resolve' => fn($product) => $product->getSku()

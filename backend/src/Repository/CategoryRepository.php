@@ -26,7 +26,7 @@ class CategoryRepository
 
         $categories = [];
         foreach ($rows as $row) {
-            $categories[] = new Category((int)$row['id'], $row['name']);
+            $categories[] = new Category((int) $row['id'], $row['name']);
         }
 
         return $categories;
@@ -49,6 +49,19 @@ class CategoryRepository
             return null;
         }
 
-        return new Category((int)$row['id'], $row['name']);
+        return new Category((int) $row['id'], $row['name']);
+    }
+
+    public function findByName(string $name): ?Category
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM categories WHERE name = :name");
+        $stmt->execute(['name' => $name]);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if (!$row) {
+            return null;
+        }
+
+        return new Category((int) $row['id'], $row['name']);
     }
 }
