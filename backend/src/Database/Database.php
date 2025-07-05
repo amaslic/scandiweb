@@ -15,12 +15,12 @@ class Database
     {
         if (self::$conn === null) {
             self::$conn = DriverManager::getConnection([
-                'dbname'   => $params['dbname'],
-                'user'     => $params['user'],
+                'dbname' => $params['dbname'],
+                'user' => $params['user'],
                 'password' => $params['password'],
-                'host'     => $params['host'],
-                'port'     => $params['port'],
-                'driver'   => 'pdo_mysql',
+                'host' => $params['host'],
+                'port' => $params['port'],
+                'driver' => 'pdo_mysql',
             ]);
         }
     }

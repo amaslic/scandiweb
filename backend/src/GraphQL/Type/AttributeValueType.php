@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\GraphQL\Type;
@@ -12,15 +13,15 @@ final class AttributeValueType
     public static function build(): ObjectType
     {
         return new ObjectType([
-            'name'   => 'AttributeValue',
+            'name' => 'AttributeValue',
             'fields' => [
                 'value' => [
-                    'type'    => Type::nonNull(Type::string()),
-                    'resolve' => fn(AttributeItem $item) => $item->getValue(),
+                    'type' => Type::nonNull(Type::string()),
+                    'resolve' => fn (AttributeItem $item) => $item->getValue(),
                 ],
                 'displayValue' => [
-                    'type'    => Type::string(),
-                    'resolve' => fn(AttributeItem $item) => $item->getDisplayValue(),
+                    'type' => Type::string(),
+                    'resolve' => fn (AttributeItem $item) => $item->getDisplayValue(),
                 ],
             ],
         ]);

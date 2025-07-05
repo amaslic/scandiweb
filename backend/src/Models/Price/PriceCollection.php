@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Models\Price;
+
 use App\Models\Currency\Currency;
 
 class PriceCollection extends AbstractPriceCollection

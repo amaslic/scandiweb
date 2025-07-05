@@ -34,7 +34,7 @@ final class ProductResolver
             : $this->productRepository->getAll();
 
         return array_map(
-            fn(array $r) => ProductFactory::create((int) $r['id'], $this->productRepository->getConnection()),
+            fn (array $r) => ProductFactory::create((int) $r['id'], $this->productRepository->getConnection()),
             $rows
         );
     }

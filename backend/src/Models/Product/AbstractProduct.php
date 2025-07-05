@@ -13,7 +13,7 @@ use Doctrine\DBAL\Connection;
  */
 abstract class AbstractProduct
 {
-    protected  $connection;
+    protected $connection;
     protected int $id;
     protected string $sku;
     protected string $name;

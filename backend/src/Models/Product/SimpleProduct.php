@@ -44,7 +44,7 @@ class SimpleProduct extends AbstractProduct
             ->executeQuery()
             ->fetchAllAssociative();
 
-        $this->gallery = array_map(fn($g) => (string) $g['image_url'], $galleryRows);
+        $this->gallery = array_map(fn ($g) => (string) $g['image_url'], $galleryRows);
     }
 
     /**

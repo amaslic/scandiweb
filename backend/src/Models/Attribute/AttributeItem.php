@@ -10,7 +10,8 @@ final class AttributeItem
         private int $id,
         private string $value,
         private ?string $displayValue,
-    ) {}
+    ) {
+    }
 
     public function getId(): int
     {

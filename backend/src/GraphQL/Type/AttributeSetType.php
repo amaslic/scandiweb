@@ -29,20 +29,20 @@ final class AttributeSetType
             'fields' => function () use ($attributeValueType, $resolver) {
                 return [
                     'id' => [
-                        'type'    => Type::nonNull(Type::string()),
-                        'resolve' => fn($set) => $resolver->resolveId($set),
+                        'type' => Type::nonNull(Type::string()),
+                        'resolve' => fn ($set) => $resolver->resolveId($set),
                     ],
                     'name' => [
-                        'type'    => Type::nonNull(Type::string()),
-                        'resolve' => fn($set) => $resolver->resolveName($set),
+                        'type' => Type::nonNull(Type::string()),
+                        'resolve' => fn ($set) => $resolver->resolveName($set),
                     ],
                     'type' => [
-                        'type'    => Type::nonNull(Type::string()),
-                        'resolve' => fn($set) => $resolver->resolveType($set),
+                        'type' => Type::nonNull(Type::string()),
+                        'resolve' => fn ($set) => $resolver->resolveType($set),
                     ],
                     'items' => [
-                        'type'    => Type::listOf($attributeValueType),
-                        'resolve' => fn($set) => $resolver->resolveItems($set),
+                        'type' => Type::listOf($attributeValueType),
+                        'resolve' => fn ($set) => $resolver->resolveItems($set),
                     ],
                 ];
             },

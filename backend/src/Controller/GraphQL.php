@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -20,12 +21,12 @@ class GraphQL
     public static function handle(array $vars = []): string
     {
         // CORS headers
-        header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Headers: Content-Type, Authorization");
-        header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization');
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 
         if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-            header("HTTP/1.1 200 OK");
+            header('HTTP/1.1 200 OK');
             return '';
         }
 
@@ -37,8 +38,8 @@ class GraphQL
                 throw new RuntimeException('Failed to read php://input');
             }
 
-            $input          = json_decode($rawInput, true);
-            $query          = $input['query']     ?? null;
+            $input = json_decode($rawInput, true);
+            $query = $input['query'] ?? null;
             $variableValues = $input['variables'] ?? null;
 
             if (!$query) {
@@ -49,12 +50,18 @@ class GraphQL
             $result = GraphQLBase::executeQuery(
                 $schema,
                 $query,
-                /* rootValue       */ null,
-                /* contextValue    */ null,
-                /* variableValues  */ $variableValues,
-                /* operationName   */ null,
-                /* fieldResolver   */ null,
-                /* validationRules */ null
+                /* rootValue       */
+                null,
+                /* contextValue    */
+                null,
+                /* variableValues  */
+                $variableValues,
+                /* operationName   */
+                null,
+                /* fieldResolver   */
+                null,
+                /* validationRules */
+                null
             );
 
             // Include debug messages in output
@@ -64,7 +71,7 @@ class GraphQL
             $output = [
                 'errors' => [
                     [
-                        'message'    => $e->getMessage(),
+                        'message' => $e->getMessage(),
                         'extensions' => ['category' => 'internal'],
                     ],
                 ],

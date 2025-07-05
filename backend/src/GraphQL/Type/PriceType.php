@@ -25,11 +25,11 @@ final class PriceType
             'fields' => [
                 'amount' => [
                     'type' => Type::nonNull(Type::float()),
-                    'resolve' => fn($price) => $price->getAmount(),
+                    'resolve' => fn ($price) => $price->getAmount(),
                 ],
                 'currency' => [
                     'type' => Type::nonNull($currencyType),
-                    'resolve' => fn($price) => $price->getCurrency(),
+                    'resolve' => fn ($price) => $price->getCurrency(),
                 ],
             ],
         ]);

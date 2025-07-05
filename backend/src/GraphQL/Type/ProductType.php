@@ -43,43 +43,43 @@ final class ProductType
                 return [
                     'id' => [
                         'type' => Type::nonNull(Type::int()),
-                        'resolve' => fn(AbstractProduct $p) => $p->getId(),
+                        'resolve' => fn (AbstractProduct $p) => $p->getId(),
                     ],
                     'sku' => [
                         'type' => Type::nonNull(Type::string()),
-                        'resolve' => fn(AbstractProduct $p) => $p->getSku(),
+                        'resolve' => fn (AbstractProduct $p) => $p->getSku(),
                     ],
                     'name' => [
                         'type' => Type::nonNull(Type::string()),
-                        'resolve' => fn(AbstractProduct $p) => $p->getName(),
+                        'resolve' => fn (AbstractProduct $p) => $p->getName(),
                     ],
                     'inStock' => [
                         'type' => Type::nonNull(Type::boolean()),
-                        'resolve' => fn(AbstractProduct $p) => $p->isInStock(),
+                        'resolve' => fn (AbstractProduct $p) => $p->isInStock(),
                     ],
                     'gallery' => [
                         'type' => Type::listOf(Type::string()),
-                        'resolve' => fn(AbstractProduct $p) => $p->getGallery(),
+                        'resolve' => fn (AbstractProduct $p) => $p->getGallery(),
                     ],
                     'description' => [
                         'type' => Type::string(),
-                        'resolve' => fn(AbstractProduct $p) => $p->getDescription(),
+                        'resolve' => fn (AbstractProduct $p) => $p->getDescription(),
                     ],
                     'brand' => [
                         'type' => Type::string(),
-                        'resolve' => fn(AbstractProduct $p) => $p->getBrand(),
+                        'resolve' => fn (AbstractProduct $p) => $p->getBrand(),
                     ],
                     'category' => [
                         'type' => $categoryType,
-                        'resolve' => fn(AbstractProduct $p) => $productResolver->resolveCategory($p),
+                        'resolve' => fn (AbstractProduct $p) => $productResolver->resolveCategory($p),
                     ],
                     'attributes' => [
                         'type' => Type::listOf($attributeSetType),
-                        'resolve' => fn(AbstractProduct $p) => $productResolver->resolveAttributes($p),
+                        'resolve' => fn (AbstractProduct $p) => $productResolver->resolveAttributes($p),
                     ],
                     'prices' => [
                         'type' => Type::listOf($priceType),
-                        'resolve' => fn(AbstractProduct $p) => $productResolver->resolvePrices($p),
+                        'resolve' => fn (AbstractProduct $p) => $productResolver->resolvePrices($p),
                     ],
                 ];
             },

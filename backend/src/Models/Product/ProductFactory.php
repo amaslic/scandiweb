@@ -14,7 +14,6 @@ use Doctrine\DBAL\Connection;
  */
 class ProductFactory
 {
-
     /**
      * Create an AbstractProduct instance for the given product ID.
      *

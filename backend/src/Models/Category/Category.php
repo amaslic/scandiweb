@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models\Category;
 
 use App\Models\Product\ProductFactory;
-use \App\Database\Database;
+use App\Database\Database;
 
 /**
  * Concrete Category model.
@@ -14,7 +14,6 @@ use \App\Database\Database;
  */
 class Category extends AbstractCategory
 {
-
     public function __construct(int $id)
     {
         parent::__construct($id, Database::getConnection());

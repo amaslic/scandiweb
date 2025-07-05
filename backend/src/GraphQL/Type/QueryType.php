@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\GraphQL\Type;
@@ -42,7 +43,7 @@ final class QueryType
         return [
             'categories' => [
                 'type' => Type::listOf($categoryType),
-                'resolve' => fn(): array => $categoryResolver->resolveAll(),
+                'resolve' => fn (): array => $categoryResolver->resolveAll(),
             ],
             'products' => [
                 'type' => Type::listOf($productType),
@@ -57,7 +58,7 @@ final class QueryType
             'product' => [
                 'type' => $productType,
                 'args' => ['sku' => Type::nonNull(Type::string())],
-                'resolve' => fn($root, array $args) => $productResolver->resolveBySku($args),
+                'resolve' => fn ($root, array $args) => $productResolver->resolveBySku($args),
             ],
         ];
     }

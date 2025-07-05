@@ -17,11 +17,11 @@ final class CurrencyType
             'fields' => [
                 'label' => [
                     'type' => Type::nonNull(Type::string()),
-                    'resolve' => fn(Currency $currency) => $currency->getLabel(),
+                    'resolve' => fn (Currency $currency) => $currency->getLabel(),
                 ],
                 'symbol' => [
                     'type' => Type::nonNull(Type::string()),
-                    'resolve' => fn(Currency $currency) => $currency->getSymbol(),
+                    'resolve' => fn (Currency $currency) => $currency->getSymbol(),
                 ],
             ],
         ]);

@@ -9,7 +9,6 @@ use App\Repositories\CategoryRepository;
 
 final class CategoryResolver
 {
-
     public function __construct(private CategoryRepository $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
@@ -20,7 +19,7 @@ final class CategoryResolver
         $rows = $this->categoryRepository->getAll();
 
         return array_map(
-            fn(array $r) => new Category((int) $r['id']),
+            fn (array $r) => new Category((int) $r['id']),
             $rows
         );
     }

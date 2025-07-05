@@ -41,9 +41,9 @@ class AttributeSetFactory
 
         // Determine the correct AttributeSet class
         return match ($type) {
-            'text'    => new TextAttributeSet($conn, $productId, $name),
-            'swatch'  => new SwatchAttributeSet($conn, $productId, $name),
-            default   => throw new InvalidArgumentException("Unsupported attribute type '{$type}' for '{$name}'."),
+            'text' => new TextAttributeSet($conn, $productId, $name),
+            'swatch' => new SwatchAttributeSet($conn, $productId, $name),
+            default => throw new InvalidArgumentException("Unsupported attribute type '{$type}' for '{$name}'."),
         };
     }
 }

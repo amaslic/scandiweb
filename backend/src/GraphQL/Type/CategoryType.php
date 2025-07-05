@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\GraphQL\Type;
@@ -29,15 +30,15 @@ final class CategoryType
                 return [
                     'id' => [
                         'type' => Type::nonNull(Type::int()),
-                        'resolve' => fn(CategoryModel $c) => $c->getId(),
+                        'resolve' => fn (CategoryModel $c) => $c->getId(),
                     ],
                     'name' => [
                         'type' => Type::nonNull(Type::string()),
-                        'resolve' => fn(CategoryModel $c) => $c->getName(),
+                        'resolve' => fn (CategoryModel $c) => $c->getName(),
                     ],
                     'products' => [
                         'type' => Type::listOf($productType),
-                        'resolve' => fn(CategoryModel $c) => $c->getProducts(),
+                        'resolve' => fn (CategoryModel $c) => $c->getProducts(),
                     ],
                 ];
             },

@@ -36,7 +36,7 @@ final class SchemaBuilder
         // Instantiate resolvers
         $productResolver = new ProductResolver($productRepository);
         $categoryResolver = new CategoryResolver($categoryRepository);
-        $attributeSetResolver = new AttributeSetResolver(); 
+        $attributeSetResolver = new AttributeSetResolver();
 
         // Prepare types
         $categoryType = null;
@@ -45,7 +45,7 @@ final class SchemaBuilder
         $currencyType = CurrencyType::build();
         $priceType = PriceType::build($currencyType);
         $attributeValueType = AttributeValueType::build();
-        $attributeSetType = AttributeSetType::build($attributeValueType, $attributeSetResolver); 
+        $attributeSetType = AttributeSetType::build($attributeValueType, $attributeSetResolver);
 
         $categoryType = CategoryType::build($categoryType, $productType);
         $productType = ProductType::build($productType, $categoryType, $priceType, $attributeSetType, $productResolver);
