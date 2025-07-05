@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+
 import { useQuery } from "@apollo/client";
 import { GET_PRODUCTS } from "../queries/getProducts";
 import { GET_CATEGORIES } from "../queries/getCategories";
@@ -7,7 +7,6 @@ import ProductListItem from "./Product/ProductListItem";
 
 import type { Product } from "../types/Product";
 import type { Category } from "../types/Category";
-import React from "react";
 
 interface Props {
   onAddToCart: () => void;
@@ -15,7 +14,7 @@ interface Props {
 
 function ProductList({ onAddToCart }: Props) {
   const { name } = useParams<{ name: string }>();
-  const categoryName = name || "All";
+  const categoryName = name || "all";
 
   const {
     data: categoryData,
@@ -23,12 +22,10 @@ function ProductList({ onAddToCart }: Props) {
     error: categoryError,
   } = useQuery<{ categories: Category[] }>(GET_CATEGORIES);
 
-  const categoryId = useMemo(() => {
-    const selectedCategory = categoryData?.categories.find(
-      (c) => c.name === categoryName
-    );
-    return selectedCategory?.id ? parseInt(selectedCategory.id) : 1;
-  }, [categoryData, categoryName]);
+  const selectedCategory = categoryData?.categories.find(
+    (c) => c.name === categoryName
+  );
+  const categoryId = selectedCategory?.id ? parseInt(selectedCategory.id) : 1;
 
   const {
     data: productData,
@@ -45,16 +42,12 @@ function ProductList({ onAddToCart }: Props) {
   return (
     <div className="product-list-grid">
       {productData?.products.map((product) => (
-        <MemoizedProductListItem
-          key={product.id}
-          {...product}
-          onAddToCart={onAddToCart}
-        />
+        <div key={product.sku}>
+          <ProductListItem {...product} onAddToCart={onAddToCart} />
+        </div>
       ))}
     </div>
   );
 }
-
-const MemoizedProductListItem = React.memo(ProductListItem);
 
 export default ProductList;

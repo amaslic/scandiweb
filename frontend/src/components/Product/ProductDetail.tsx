@@ -6,15 +6,15 @@ import parse from "html-react-parser";
 import type { Product } from "../../types/Product";
 import { GET_PRODUCT_BY_SKU } from "../../queries/getProducts";
 import ProductGallery from "./ProductGallery";
-
+import ToastHandler from "../ToastHandler";
 
 function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
-  const { id } = useParams<{ id: string }>();
+  const { sku } = useParams<{ sku: string }>();
   const { addItem } = useCart();
 
   const { data, loading, error } = useQuery<{ product: Product }>(
     GET_PRODUCT_BY_SKU,
-    { variables: { sku: id } }
+    { variables: { sku: sku } }
   );
 
   const [selectedAttributes, setSelectedAttributes] = useState<{
@@ -37,24 +37,29 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
     product.attributes.length === Object.keys(selectedAttributes).length;
 
   const handleAddToCart = () => {
+    const suffix = product.attributes
+      .map((attr) => selectedAttributes[attr.id] || attr.items[0].value)
+      .join("-");
+
     addItem({
-      id: `${product.id}-${Object.values(selectedAttributes).join("-")}`,
+      id: `${product.sku}-${suffix}`,
       name: product.name,
-      price: product.price,
+      price: product.prices?.[0]?.amount ?? 0,
       attributes: product.attributes.map((attr) => {
         const selectedItem = attr.items.find(
-          (item) => item.id === selectedAttributes[attr.id]
+          (item) => item.value === selectedAttributes[attr.id]
         );
+
         return {
           id: attr.id,
           name: attr.name,
           selectedItem: {
-            id: selectedItem?.id,
+            id: selectedItem?.value,
             value: selectedItem?.value,
             displayValue: selectedItem?.displayValue,
           },
           items: attr.items.map((item) => ({
-            id: item.id,
+            id: item.value,
             value: item.value,
             displayValue: item.displayValue,
           })),
@@ -62,7 +67,7 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
       }),
       image: product.gallery[0] ?? "",
     });
-
+    ToastHandler.successProductAdd(product.name);
     onAddToCart();
   };
 
@@ -85,13 +90,16 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
                 <h2 className="product-attribute-label">{attr.name}:</h2>
                 <div className="product-attribute-group">
                   {attr.items.map((item) => {
-                    const isSelected = selectedAttributes[attr.id] === item.id;
+                    const isSelected =
+                      selectedAttributes[attr.id] === item.value;
 
                     return (
                       <button
-                        key={item.id}
-                        onClick={() => handleSelectAttribute(attr.id, item.id)}
-                        title={item.displayValue}
+                        key={item.value}
+                        onClick={() =>
+                          handleSelectAttribute(attr.id, item.value)
+                        }
+                        title={item.value}
                         className={`${
                           isColorAttr
                             ? "attribute-color-base"
@@ -109,7 +117,7 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
                           isColorAttr ? { backgroundColor: item.value } : {}
                         }
                       >
-                        {!isColorAttr && item.displayValue}
+                        {!isColorAttr && item.value}
                       </button>
                     );
                   })}
@@ -120,7 +128,10 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
 
           <div>
             <h2 className="product-price-label">Price:</h2>
-            <p className="product-price-value">${product.price.toFixed(2)}</p>
+            <p className="product-price-value">
+              {product.prices[0].currency.symbol}{" "}
+              {product.prices[0].amount.toFixed(2)}
+            </p>
           </div>
 
           {product.inStock && (

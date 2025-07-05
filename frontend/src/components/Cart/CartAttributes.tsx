@@ -29,7 +29,7 @@ function CartAttributes({ attributes }: Props) {
                           : "border border-gray-300"
                       }`}
                       style={{ backgroundColor: itemOpt.value }}
-                      title={itemOpt.displayValue}
+                      title={itemOpt.value}
                       data-testid={`cart-item-attribute-${kebabAttr}-${kebabValue}${
                         isSelected ? "-selected" : ""
                       }`}
@@ -46,7 +46,7 @@ function CartAttributes({ attributes }: Props) {
                         isSelected ? "-selected" : ""
                       }`}
                     >
-                      {itemOpt.displayValue}
+                      {itemOpt.value}
                     </span>
                   );
                 })}

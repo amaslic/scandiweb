@@ -14,7 +14,7 @@ function CartHeader({ itemCount, onClose }: Props) {
           {itemCount} {itemCount === 1 ? "item" : "items"}
         </span>
       </h2>
-      <button onClick={onClose}>
+      <button onClick={onClose} aria-label="Close cart">
         <X />
       </button>
     </div>

@@ -1,9 +1,18 @@
 <?php
+declare(strict_types=1);
 
+// 1) Load Composer’s PSR-4 autoloader
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
-    $r->post('/graphql', [App\Controller\GraphQL::class, 'handle']);
+// 2) Bootstrap environment & DB
+require_once __DIR__ . '/../bootstrap.php';
+
+use FastRoute\RouteCollector;
+// 3) Import your GraphQL controller so App\Controller\GraphQL::class resolves
+use App\Controller\GraphQL;
+
+$dispatcher = FastRoute\simpleDispatcher(function(RouteCollector $r) {
+    $r->post('/graphql', [GraphQL::class, 'handle']);
 });
 
 $routeInfo = $dispatcher->dispatch(
@@ -13,15 +22,15 @@ $routeInfo = $dispatcher->dispatch(
 
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
-        // ... 404 Not Found
+        header("HTTP/1.1 404 Not Found");
         break;
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
         $allowedMethods = $routeInfo[1];
-        // ... 405 Method Not Allowed
+        header("HTTP/1.1 405 Method Not Allowed");
         break;
     case FastRoute\Dispatcher::FOUND:
         $handler = $routeInfo[1];
-        $vars = $routeInfo[2];
+        $vars    = $routeInfo[2];
         echo $handler($vars);
         break;
 }

@@ -1,16 +1,17 @@
 import type { AttributeSet } from "./Attribute";
+import type { Category } from "./Category";
 import type { Price } from "./Price";
 
 
 export interface Product {
-  id: string; // actually SKU
+  id: string;
+  sku: string;
   name: string;
-  price: number;
   prices: Price[];
   brand?: string;
   inStock?: boolean;
   description?: string;
-  category: string;
+  category: Category;
   gallery: string[];
   attributes: AttributeSet[];
 }

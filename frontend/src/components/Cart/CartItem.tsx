@@ -1,5 +1,8 @@
 import CartAttributes from "./CartAttributes";
 
+import ToastHandler from "../ToastHandler";
+
+
 interface Props {
   item: any;
   onIncrease: () => void;
@@ -7,6 +10,17 @@ interface Props {
 }
 
 function CartItem({ item, onIncrease, onDecrease }: Props) {
+
+  const onClickIncrease = () => {
+    onIncrease();
+    ToastHandler.successProductAdd(item.name);
+  };
+
+  const onClickDecrease= () => {
+    onDecrease();
+    ToastHandler.successProductRemove(item.name);
+  };
+
   return (
     <div className="cart-item">
       <div className="cart-item-details">
@@ -20,7 +34,7 @@ function CartItem({ item, onIncrease, onDecrease }: Props) {
         <div className="cart-quantity-controls">
           <button
             className="cart-quantity-btn"
-            onClick={onDecrease}
+            onClick={onClickDecrease}
             data-testid="cart-item-amount-decrease"
           >
             -
@@ -28,7 +42,7 @@ function CartItem({ item, onIncrease, onDecrease }: Props) {
           <span>{item.quantity}</span>
           <button
             className="cart-quantity-btn"
-            onClick={onIncrease}
+            onClick={onClickIncrease}
             data-testid="cart-item-amount-increase"
           >
             +

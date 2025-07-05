@@ -7,17 +7,23 @@ interface Props {
 
 function ProductGallery({ images }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const length = images.length;
 
   const nextImage = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-  }, [images.length]);
+    if (currentIndex < length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  }, [currentIndex, length]);
 
   const prevImage = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  }, [images.length]);
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  }, [currentIndex]);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
+      if (length <= 1) return;
       if (e.key === "ArrowLeft") {
         prevImage();
       } else if (e.key === "ArrowRight") {
@@ -27,9 +33,9 @@ function ProductGallery({ images }: Props) {
 
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [nextImage, prevImage]);
+  }, [nextImage, prevImage, length]);
 
-  if (!images || images.length === 0) {
+  if (length === 0) {
     return <div>No images available</div>;
   }
 
@@ -58,21 +64,32 @@ function ProductGallery({ images }: Props) {
           className="gallery-main-image"
         />
 
-        <button
-          onClick={prevImage}
-          className="gallery-arrow gallery-arrow-left"
-          aria-label="Previous image"
-        >
-          <ChevronLeft />
-        </button>
+        {/* Only show arrows if there’s more than one image */}
+        {length > 1 && (
+          <>
+            {/* Left arrow hidden on first image */}
+            {currentIndex > 0 && (
+              <button
+                onClick={prevImage}
+                className="gallery-arrow gallery-arrow-left"
+                aria-label="Previous image"
+              >
+                <ChevronLeft />
+              </button>
+            )}
 
-        <button
-          onClick={nextImage}
-          className="gallery-arrow gallery-arrow-right"
-          aria-label="Next image"
-        >
-          <ChevronRight />
-        </button>
+            {/* Right arrow hidden on last image */}
+            {currentIndex < length - 1 && (
+              <button
+                onClick={nextImage}
+                className="gallery-arrow gallery-arrow-right"
+                aria-label="Next image"
+              >
+                <ChevronRight />
+              </button>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

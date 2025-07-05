@@ -4,6 +4,7 @@ import Cart from "./components/Cart/Cart";
 import ProductDetail from "./components/Product/ProductDetail";
 import { useState } from "react";
 import Header from "./components/Header/Header";
+import { ToastRoot } from "./components/ToastHandler";
 
 function App() {
   const [cartOpen, setCartOpen] = useState(false);
@@ -24,9 +25,11 @@ function App() {
         <Routes>
           <Route path="/" element={<ProductList onAddToCart={() => setCartOpen(true)} />} />
           <Route path="/category/:name" element={<ProductList onAddToCart={() => setCartOpen(true)} />} />
-          <Route path="/product/:id" element={<ProductDetail onAddToCart={() => setCartOpen(true)} />} />
+          <Route path="/product/:sku" element={<ProductDetail onAddToCart={() => setCartOpen(true)} />} />
         </Routes>
       </main>
+
+      <ToastRoot />
     </div>
   );
 }

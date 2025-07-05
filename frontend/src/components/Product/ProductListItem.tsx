@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { useCart } from "react-use-cart";
-import { useMemo } from "react";
 import type { Product } from "../../types/Product";
+import ToastHandler from "../ToastHandler";
 
 interface Props extends Product {
   onAddToCart: () => void;
 }
 
 function ProductListItem({
-  id,
+  sku,
   name,
   inStock,
   gallery,
@@ -18,49 +18,50 @@ function ProductListItem({
 }: Props) {
   const { addItem } = useCart();
 
-  const defaultAttributes = useMemo(() => {
-    return (
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    const defaultAttributes =
       attributes?.map((attr) => {
-        const firstItem = attr.items[0];
+        const first = attr.items[0]!;
         return {
           id: attr.id,
           name: attr.name,
           selectedItem: {
-            id: firstItem?.id,
-            value: firstItem?.value,
-            displayValue: firstItem?.displayValue,
+            id: first.value,
+            value: first.value,
+            displayValue: first.displayValue,
           },
           items: attr.items.map((item) => ({
-            id: item.id,
+            id: item.value,
             value: item.value,
             displayValue: item.displayValue,
           })),
         };
-      }) || []
-    );
-  }, [attributes]);
+      }) || [];
 
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
+    console.log(
+      `${sku}-${defaultAttributes.map((a) => a.selectedItem.value).join("-")}`
+    );
 
     addItem({
-      id: `${id}-${defaultAttributes
-        .map((a) => a.selectedItem?.value)
+      id: `${sku}-${defaultAttributes
+        .map((a) => a.selectedItem.value)
         .join("-")}`,
       name,
-      price: prices[0].amount,
+      price: prices[0]?.amount ?? 0,
       attributes: defaultAttributes,
       image: gallery[0] ?? "",
     });
 
+    ToastHandler.successProductAdd(name);
     onAddToCart();
   };
-
   const productSlug = name.toLowerCase().replace(/\s+/g, "-");
 
   return (
     <Link
-      to={`/product/${id}`}
+      to={`/product/${sku}`}
       className="group product-list-item"
       data-testid={`product-${productSlug}`}
     >

@@ -1,39 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Database;
 
-use Dotenv\Dotenv;
-use PDO;
-use PDOException;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Connection;
 
 class Database
 {
-    private static ?PDO $connection = null;
+    private static ?Connection $conn = null;
 
-    public static function getConnection(): PDO
+    public static function init(array $params): void
     {
-        if (self::$connection === null) {
-            $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
-            $dotenv->safeLoad();
+        if (self::$conn === null) {
+            self::$conn = DriverManager::getConnection([
+                'dbname'   => $params['dbname'],
+                'user'     => $params['user'],
+                'password' => $params['password'],
+                'host'     => $params['host'],
+                'port'     => $params['port'],
+                'driver'   => 'pdo_mysql',
+            ]);
+        }
+    }
 
-            $host = $_ENV['DB_HOST'];
-            $port = $_ENV['DB_PORT'];
-            $dbname = $_ENV['DB_NAME'];
-            $user = $_ENV['DB_USER'];
-            $pass = $_ENV['DB_PASS'];
-
-            $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4";
-
-            try {
-                self::$connection = new PDO($dsn, $user, $pass, [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                ]);
-            } catch (PDOException $e) {
-                die("Connection failed: " . $e->getMessage());
-            }
+    public static function getConnection(): Connection
+    {
+        if (self::$conn === null) {
+            throw new \RuntimeException('Database connection not initialized.');
         }
 
-        return self::$connection;
+        return self::$conn;
     }
 }
