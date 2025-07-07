@@ -3,7 +3,7 @@ interface Props {
 }
 
 function CartAttributes({ attributes }: Props) {
-  console.log(attributes);
+ 
   return (
     <div className="cart-attribute-block">
       {attributes.map((attr, index) => {
