@@ -48,6 +48,24 @@ final class ProductRepository
         return $row ?: null;
     }
 
+    public function getDefaultPrice(int $productId): float
+    {
+        $row = $this->db->createQueryBuilder()
+            ->select('amount')
+            ->from('prices')
+            ->where('product_id = :productId')
+            ->setParameter('productId', $productId)
+            ->setMaxResults(1)
+            ->executeQuery()
+            ->fetchAssociative();
+
+        if (!$row) {
+            throw new \RuntimeException("No price found for product ID {$productId}");
+        }
+
+        return (float) $row['amount'];
+    }
+
     public function getConnection(): Connection
     {
         return $this->db;

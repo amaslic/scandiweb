@@ -23,9 +23,9 @@ class AttributeSetFactory
     {
         $conn = Database::getConnection();
 
-        // Fetch attribute metadata (name and type)
+        // Fetch attribute metadata (name, id and type)
         $qb = $conn->createQueryBuilder();
-        $row = $qb->select('name', 'type')
+        $row = $qb->select('name', 'type', 'id')
             ->from('attributes')
             ->where('id = :aid')
             ->setParameter('aid', $attributeId)
@@ -38,11 +38,12 @@ class AttributeSetFactory
 
         $name = (string) $row['name'];
         $type = (string) $row['type'];
+        $id = (int) $row['id'];
 
         // Determine the correct AttributeSet class
         return match ($type) {
-            'text' => new TextAttributeSet($conn, $productId, $name),
-            'swatch' => new SwatchAttributeSet($conn, $productId, $name),
+            'text' => new TextAttributeSet($conn, $productId, $name, $id),
+            'swatch' => new SwatchAttributeSet($conn, $productId, $name, $id),
             default => throw new InvalidArgumentException("Unsupported attribute type '{$type}' for '{$name}'."),
         };
     }

@@ -40,19 +40,25 @@ function ProductListItem({
         };
       }) || [];
 
-    console.log(
-      `${sku}-${defaultAttributes.map((a) => a.selectedItem.value).join("-")}`
-    );
-
     addItem({
       id: `${sku}-${defaultAttributes
         .map((a) => a.selectedItem.value)
         .join("-")}`,
+      sku: sku,
       name,
       price: prices[0]?.amount ?? 0,
       attributes: defaultAttributes,
       image: gallery[0] ?? "",
     });
+
+    console.log({id: `${sku}-${defaultAttributes
+        .map((a) => a.selectedItem.value)
+        .join("-")}`,
+      sku: sku,
+      name,
+      price: prices[0]?.amount ?? 0,
+      attributes: defaultAttributes,
+      image: gallery[0] ?? ""})
 
     ToastHandler.successProductAdd(name);
     onAddToCart();

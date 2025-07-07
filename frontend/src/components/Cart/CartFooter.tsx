@@ -1,9 +1,29 @@
+import { usePlaceOrder } from "../../hooks/usePlaceOrder";
+import ToastHandler from "../ToastHandler";
+
 interface Props {
   total: number;
   isEmpty: boolean;
 }
 
 function CartFooter({ total, isEmpty }: Props) {
+  const { placeOrder, loading } = usePlaceOrder();
+
+  const handlePlaceOrder = async () => {
+    try {
+      const response = await placeOrder();
+
+      if (response?.data?.placeOrder?.success) {
+        ToastHandler.successOrder(response.data.placeOrder.message);
+      } else {
+        ToastHandler.errorOrder();
+      }
+    } catch (err) {
+      ToastHandler.errorOrder();
+      console.log(err);
+    }
+  };
+
   return (
     <div className="cart-footer">
       <div className="cart-total" data-testid="cart-total">
@@ -15,9 +35,10 @@ function CartFooter({ total, isEmpty }: Props) {
         className={`cart-place-order-btn ${
           isEmpty ? "opacity-50 cursor-not-allowed" : ""
         }`}
-        disabled={isEmpty}
+        disabled={isEmpty || loading}
+        onClick={handlePlaceOrder}
       >
-        Place Order
+        {loading ? "Ordering..." : "Place Order"}
       </button>
     </div>
   );

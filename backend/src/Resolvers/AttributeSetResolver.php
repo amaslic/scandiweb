@@ -9,9 +9,9 @@ use App\Models\Attribute\SwatchAttributeSet;
 
 final class AttributeSetResolver
 {
-    public function resolveId(AbstractAttributeSet $set): string
+    public function resolveId(AbstractAttributeSet $set): int
     {
-        return $set->getName();
+        return $set->getId();
     }
 
     public function resolveName(AbstractAttributeSet $set): string

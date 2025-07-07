@@ -25,7 +25,7 @@ class TextAttributeSet extends AbstractAttributeSet
 
         foreach ($rows as $row) {
             $this->values[] = new AttributeItem(
-                $row['id'], // ili pravi ID ako postoji u bazi
+                $row['id'],
                 $row['value'],
                 $row['display_value']
             );

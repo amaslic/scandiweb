@@ -43,6 +43,7 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
 
     addItem({
       id: `${product.sku}-${suffix}`,
+      sku: sku,
       name: product.name,
       price: product.prices?.[0]?.amount ?? 0,
       attributes: product.attributes.map((attr) => {

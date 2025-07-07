@@ -17,7 +17,7 @@ $envName = $_ENV['DB_NAME'] ?? getenv('DB_NAME');
 $envUser = $_ENV['DB_USER'] ?? getenv('DB_USER');
 $envPass = $_ENV['DB_PASS'] ?? getenv('DB_PASS');
 
-// 3) Initialize your DB
+// 3) Initialize DB
 Database::init([
     'host'     => $envHost,
     'port'     => $envPort,

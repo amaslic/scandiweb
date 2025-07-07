@@ -29,7 +29,7 @@ final class AttributeSetType
             'fields' => function () use ($attributeValueType, $resolver) {
                 return [
                     'id' => [
-                        'type' => Type::nonNull(Type::string()),
+                        'type' => Type::nonNull(Type::int()),
                         'resolve' => fn ($set) => $resolver->resolveId($set),
                     ],
                     'name' => [

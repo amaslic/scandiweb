@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ );
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 class Seeder
@@ -87,6 +87,35 @@ class Seeder
             FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
         );");
         echo "Table 'prices' created.\n";
+
+        $this->pdo->exec("CREATE TABLE IF NOT EXISTS orders (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );");
+        echo "Table 'orders' created.\n";
+
+        $this->pdo->exec("CREATE TABLE IF NOT EXISTS order_items (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            order_id INT NOT NULL,
+            product_id INT NOT NULL,
+            quantity INT NOT NULL,
+            price DECIMAL(10,2) NOT NULL,
+            FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+            FOREIGN KEY (product_id) REFERENCES products(id)
+        );");
+        echo "Table 'order_items' created.\n";
+
+        $this->pdo->exec("CREATE TABLE IF NOT EXISTS order_item_attributes (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            order_item_id INT NOT NULL,
+            attribute_id INT NOT NULL,
+            value VARCHAR(255) NOT NULL,
+            display_value VARCHAR(255),
+            FOREIGN KEY (order_item_id) REFERENCES order_items(id) ON DELETE CASCADE,
+            FOREIGN KEY (attribute_id) REFERENCES attributes(id)
+        );");
+        echo "Table 'order_item_attributes' created.\n";
+
     }
 
     public function run(string $jsonFilePath): void

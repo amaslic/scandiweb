@@ -12,15 +12,19 @@ use App\GraphQL\Type\CurrencyType;
 use App\GraphQL\Type\PriceType;
 use App\GraphQL\Type\ProductType;
 use App\GraphQL\Type\QueryType;
-use App\Models\Product\ProductFactory;
+use App\GraphQL\Type\OrderResponseType;
+use App\GraphQL\Input\OrderItemInputType;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\OrderRepository;
+use App\Services\OrderService;
 use App\Resolvers\AttributeSetResolver;
 use App\Resolvers\CategoryResolver;
 use App\Resolvers\ProductResolver;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Schema;
+use App\GraphQL\Mutation\PlaceOrderMutation;
 
 final class SchemaBuilder
 {
@@ -32,6 +36,10 @@ final class SchemaBuilder
         // Instantiate repositories
         $categoryRepository = new CategoryRepository($connection);
         $productRepository = new ProductRepository($connection);
+        $orderRepository = new OrderRepository($connection);
+
+        // Instantiate service
+        $orderService = new OrderService($connection, $productRepository);
 
         // Instantiate resolvers
         $productResolver = new ProductResolver($productRepository);
@@ -50,7 +58,7 @@ final class SchemaBuilder
         $categoryType = CategoryType::build($categoryType, $productType);
         $productType = ProductType::build($productType, $categoryType, $priceType, $attributeSetType, $productResolver);
 
-        // Build root query with resolver injection
+        // Root query
         $queryType = QueryType::build(
             $categoryType,
             $productType,
@@ -60,40 +68,25 @@ final class SchemaBuilder
             $categoryResolver
         );
 
-        // Mutation type for demo (fake order)
-        $orderResponseType = new ObjectType([
-            'name' => 'OrderResponse',
+        // Mutation
+        $mutationType = new ObjectType([
+            'name' => 'Mutation',
             'fields' => [
-                'success' => Type::nonNull(Type::boolean()),
-                'message' => Type::nonNull(Type::string()),
+                'placeOrder' => [
+                    'type' => OrderResponseType::build(),
+                    'args' => [
+                        'items' => Type::nonNull(Type::listOf(OrderItemInputType::build())),
+                    ],
+                    'resolve' => fn($root, array $args) => $orderService->placeOrder($args['items']),
+                ],
             ],
         ]);
 
         $mutationType = new ObjectType([
             'name' => 'Mutation',
-            'fields' => [
-                'createOrder' => [
-                    'type' => $orderResponseType,
-                    'args' => [
-                        'skus' => Type::nonNull(Type::listOf(Type::nonNull(Type::int()))),
-                    ],
-                    'resolve' => function ($root, array $args) {
-                        $total = 0;
-                        foreach ($args['skus'] as $id) {
-                            $prod = ProductFactory::create($id);
-                            $prices = $prod->getPrices();
-                            if (!empty($prices)) {
-                                $total += $prices[0]->getAmount();
-                            }
-                        }
-
-                        return [
-                            'success' => true,
-                            'message' => "Order received. Total calculated: $total",
-                        ];
-                    },
-                ],
-            ],
+            'fields' => array_merge(
+                PlaceOrderMutation::getMutation($connection, $productRepository)
+            ),
         ]);
 
         return new Schema([
