@@ -1,9 +1,8 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
-const isLocalhost = window.location.hostname === "localhost";
 
 const client = new ApolloClient({
-  uri: isLocalhost ? "/graphql" : import.meta.env.VITE_GRAPHQL_URL,
+  uri: import.meta.env.VITE_GRAPHQL_URL,
   cache: new InMemoryCache(),
   credentials: "include",
   defaultOptions: {
