@@ -2,7 +2,7 @@
 
 
 .product-list-grid {
-  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 w-full;
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 w-full lg:max-w-4xl mx-auto;
 }
 
 .product-list-item {
@@ -116,7 +116,7 @@
 }
 
 .gallery-thumbnails {
-  @apply flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto max-h-[500px] sm:max-h-[500px];
+  @apply flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto ;
 }
 
 .gallery-thumbnail {
@@ -128,7 +128,7 @@
 }
 
 .gallery-main {
-  @apply relative flex-1 max-h-[500px] w-full;
+  @apply relative flex-1 max-h-[500px] w-full flex justify-center items-center;
 }
 
 .gallery-main-image {

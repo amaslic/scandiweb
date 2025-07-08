@@ -5,11 +5,11 @@ const config: ToastOptions = { position: "top-right", autoClose: 3000 };
 
 const ToastHandler = {
   successProductAdd: (name: string) => {
-    toast.success(`Product ${name} added to cart.`, config);
+    toast.success(`${name} added to cart.`, config);
   },
 
   successProductRemove: (name: string) => {
-    toast.success(`Product ${name} removed from cart.`, config);
+    toast.success(`${name} removed from cart.`, config);
   },
 
   errorProduct: (name: string) => {

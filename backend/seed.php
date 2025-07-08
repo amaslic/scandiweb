@@ -99,8 +99,9 @@ class Seeder
             order_id INT NOT NULL,
             product_id INT NOT NULL,
             quantity INT NOT NULL,
-            price DECIMAL(10,2) NOT NULL,
+            price_id INT NOT NULL,
             FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+            FOREIGN KEY (price_id) REFERENCES prices(id) ON DELETE CASCADE,
             FOREIGN KEY (product_id) REFERENCES products(id)
         );");
         echo "Table 'order_items' created.\n";

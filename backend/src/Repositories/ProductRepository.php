@@ -48,13 +48,13 @@ final class ProductRepository
         return $row ?: null;
     }
 
-    public function getDefaultPrice(int $productId): float
+    public function getDefaultPrice(int $productId): array
     {
         $row = $this->db->createQueryBuilder()
-            ->select('amount')
+            ->select('*')
             ->from('prices')
-            ->where('product_id = :productId')
-            ->setParameter('productId', $productId)
+            ->where('product_id = :product_id')
+            ->setParameter('product_id', $productId)
             ->setMaxResults(1)
             ->executeQuery()
             ->fetchAssociative();
@@ -63,7 +63,7 @@ final class ProductRepository
             throw new \RuntimeException("No price found for product ID {$productId}");
         }
 
-        return (float) $row['amount'];
+        return  $row;
     }
 
     public function getConnection(): Connection

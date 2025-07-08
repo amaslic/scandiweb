@@ -35,9 +35,15 @@ class OrderService
             }
 
             $productId = $product['id'];
-            $price = $this->productRepository->getDefaultPrice($productId);
+            $priceRow = $this->productRepository->getDefaultPrice($productId);
 
-            $orderItemId = $this->orderRepository->addOrderItem($orderId, $productId, $qty, $price);
+            if (!$priceRow) {
+                throw new \Exception("Default price not found for product ID {$productId}");
+            }
+
+            $priceId = $priceRow['id'];
+
+            $orderItemId = $this->orderRepository->addOrderItem($orderId, $productId, $qty, $priceId);
 
             foreach ($attributes as $attribute) {
                 if (empty($attribute['id'])) {
