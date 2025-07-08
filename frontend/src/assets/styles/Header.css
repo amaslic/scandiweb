@@ -1,0 +1,55 @@
+.header-container {
+  @apply sticky top-0 w-full h-16 shadow z-50 border-b p-4 px-6 flex items-center justify-between bg-white;
+}
+
+.nav-desktop {
+  @apply hidden md:flex gap-6;
+}
+
+.nav-button {
+  @apply uppercase text-sm font-medium tracking-wide transition;
+}
+
+.nav-button-active {
+  @apply text-green-500 border-b-2 border-green-500 pb-1;
+}
+
+.nav-button-inactive {
+  @apply text-gray-700 hover:text-green-500;
+}
+
+.menu-button {
+  @apply md:hidden;
+}
+
+.logo-container {
+  @apply absolute left-1/2 transform -translate-x-1/2;
+}
+
+.logo-badge {
+  @apply bg-green-500 text-white p-2 rounded-md;
+}
+
+.cart-button {
+  @apply relative text-gray-700 hover:text-black;
+}
+
+.cart-badge {
+  @apply absolute -top-2 -right-2 bg-green-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full;
+}
+
+.mobile-menu {
+  @apply absolute top-full left-0 w-full bg-white border-t mt-2 p-4 flex flex-col gap-4 md:hidden z-10;
+}
+
+.mobile-button {
+  @apply uppercase text-sm font-medium text-left;
+}
+
+.mobile-button-active {
+  @apply text-green-500 underline;
+}
+
+.mobile-button-inactive {
+  @apply text-gray-700;
+}

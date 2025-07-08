@@ -1,0 +1,31 @@
+.product-attribute-label {
+  @apply text-sm font-semibold mb-1 uppercase;
+}
+
+.product-attribute-group {
+  @apply flex gap-2 flex-wrap;
+}
+
+.attribute-button-base {
+  @apply px-3 py-1 rounded border text-sm;
+}
+
+.attribute-button-selected {
+  @apply bg-black text-white border-black;
+}
+
+.attribute-button-unselected {
+  @apply border-gray-300 bg-white;
+}
+
+.attribute-color-base {
+  @apply w-8 h-8 rounded-full;
+}
+
+.attribute-color-selected {
+  @apply ring-2 ring-black;
+}
+
+.attribute-color-unselected {
+  @apply border;
+}

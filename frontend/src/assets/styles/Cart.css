@@ -1,0 +1,87 @@
+.cart-container {
+  @apply fixed top-[64px] right-0 w-full max-w-sm bg-white shadow-lg z-50 flex flex-col;
+}
+
+.cart-header {
+  @apply flex items-center justify-between px-6 py-4;
+}
+
+.cart-header-title {
+  @apply text-lg font-semibold;
+}
+
+.cart-header-count {
+  @apply text-gray-500 font-normal text-base ml-1;
+}
+
+.cart-items-container {
+  @apply px-6 py-4 space-y-6 max-h-[420px] overflow-auto;
+}
+
+.cart-item {
+  @apply flex items-start justify-between gap-4;
+}
+
+.cart-item-details {
+  @apply flex-1 text-sm space-y-2;
+}
+
+.cart-item-header {
+  @apply flex justify-between;
+}
+
+.cart-item-name {
+  @apply font-medium;
+}
+
+.cart-add-btn {
+  @apply text-sm border px-1;
+}
+
+.cart-price {
+  @apply text-gray-600;
+}
+
+.cart-attribute-block {
+  @apply space-y-2;
+}
+
+.cart-attribute-label {
+  @apply text-gray-500 capitalize mb-1;
+}
+
+.cart-attribute-value {
+  @apply px-2 py-0.5 border text-xs rounded font-medium;
+}
+
+.cart-attribute-color {
+  @apply w-4 h-4 rounded border;
+}
+
+.cart-quantity-controls {
+  @apply flex items-center gap-2 mt-2;
+}
+
+.cart-quantity-btn {
+  @apply w-6 h-6 border rounded text-sm;
+}
+
+.cart-item-image {
+  @apply w-24 h-24 object-cover border rounded;
+}
+
+.cart-footer {
+  @apply p-6 space-y-4;
+}
+
+.cart-total {
+  @apply flex justify-between text-sm;
+}
+
+.cart-total-value {
+  @apply font-semibold;
+}
+
+.cart-place-order-btn {
+  @apply w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded text-sm font-semibold transition uppercase;
+}
