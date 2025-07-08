@@ -26,6 +26,8 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
 
   const product = data.product;
 
+  const [price] = data.product.prices;
+
   const handleSelectAttribute = (attrId: string, itemId: string) => {
     setSelectedAttributes((prev) => ({
       ...prev,
@@ -45,7 +47,7 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
       id: `${product.sku}-${suffix}`,
       sku: sku,
       name: product.name,
-      price: product.prices?.[0]?.amount ?? 0,
+      price: price?.amount ?? 0,
       attributes: product.attributes.map((attr) => {
         const selectedItem = attr.items.find(
           (item) => item.value === selectedAttributes[attr.id]
@@ -130,8 +132,8 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
           <div>
             <h2 className="product-price-label">Price:</h2>
             <p className="product-price-value">
-              {product.prices[0].currency.symbol}{" "}
-              {product.prices[0].amount.toFixed(2)}
+              {price.currency.symbol}{" "}
+              {price.amount.toFixed(2)}
             </p>
           </div>
 

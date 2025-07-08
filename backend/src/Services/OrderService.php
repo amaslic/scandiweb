@@ -42,8 +42,9 @@ class OrderService
             }
 
             $priceId = $priceRow['id'];
+            $unitPrice  = $priceRow['amount'];
 
-            $orderItemId = $this->orderRepository->addOrderItem($orderId, $productId, $qty, $priceId);
+            $orderItemId = $this->orderRepository->addOrderItem($orderId, $productId, $qty, $priceId, $unitPrice);
 
             foreach ($attributes as $attribute) {
                 if (empty($attribute['id'])) {

@@ -17,6 +17,7 @@ function ProductListItem({
   onAddToCart,
 }: Props) {
   const { addItem } = useCart();
+  const [price] = prices;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -46,19 +47,10 @@ function ProductListItem({
         .join("-")}`,
       sku: sku,
       name,
-      price: prices[0]?.amount ?? 0,
+      price: price.amount ?? 0,
       attributes: defaultAttributes,
       image: gallery[0] ?? "",
     });
-
-    console.log({id: `${sku}-${defaultAttributes
-        .map((a) => a.selectedItem.value)
-        .join("-")}`,
-      sku: sku,
-      name,
-      price: prices[0]?.amount ?? 0,
-      attributes: defaultAttributes,
-      image: gallery[0] ?? ""})
 
     ToastHandler.successProductAdd(name);
     onAddToCart();
@@ -115,8 +107,8 @@ function ProductListItem({
       <div className="product-info">
         <h2 className="product-name">{name}</h2>
         <p className="product-price">
-          {prices[0]?.currency.symbol}
-          {prices[0]?.amount.toFixed(2)}
+          {price.currency.symbol}
+          {price.amount.toFixed(2)}
         </p>
       </div>
     </Link>

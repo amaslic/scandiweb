@@ -19,13 +19,14 @@ class OrderRepository
         return (int) $this->connection->lastInsertId();
     }
 
-    public function addOrderItem(int $orderId, int $productId, int $quantity, int $priceId): int
+    public function addOrderItem(int $orderId, int $productId, int $quantity, int $priceId, float $unitPrice): int
     {
         $this->connection->insert('order_items', [
             'order_id' => $orderId,
             'product_id' => $productId,
             'quantity' => $quantity,
             'price_id' => $priceId,
+            'unit_price' => $unitPrice,
         ]);
         return (int) $this->connection->lastInsertId();
     }

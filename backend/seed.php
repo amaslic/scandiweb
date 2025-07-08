@@ -117,6 +117,9 @@ class Seeder
         );");
         echo "Table 'order_item_attributes' created.\n";
 
+        $this->pdo->exec("ALTER TABLE order_items ADD COLUMN unit_price DECIMAL(10,2);");
+        echo "Table 'order_items' updated.\n";
+
     }
 
     public function run(string $jsonFilePath): void

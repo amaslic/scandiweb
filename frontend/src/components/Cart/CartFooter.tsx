@@ -20,7 +20,6 @@ function CartFooter({ total, isEmpty }: Props) {
       }
     } catch (err) {
       ToastHandler.errorOrder();
-      console.log(err);
     }
   };
 
