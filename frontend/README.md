@@ -1,69 +1,83 @@
-# React + TypeScript + Vite
+# Frontend — Scandiweb Fullstack Test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Stack Used
 
-Currently, two official plugins are available:
+- React
+- Vite – Fast dev server and optimized build
+- Tailwind CSS – Utility-first CSS framework
+- Apollo Client – Used for GraphQL queries and caching
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Folder Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+frontend/
+│
+├── public/                  # Static assets
+├── src/
+│   ├── assets/              # Static images and styles
+│   │   └── styles/          # Tailwind-based modular CSS files
+│   ├── components/          # React components (Cart, Header, ProductList, etc.)
+│   ├── hooks/               # Custom React hooks
+│   ├── queries/             # GraphQL queries
+│   ├── types/               # TypeScript interfaces/types
+│   ├── App.tsx              # App entry with routing setup
+│   ├── appoloClient.ts      # Apollo GraphQL client setup
+│   ├── main.tsx             # React DOM root
+│   └── index.css            # Tailwind & global CSS imports
+│
+├── .env.*                   # Vite environment configs
+├── vite.config.ts           # Vite config
+├── vercel.json              # Rewrites for SPA fallback (important!)
+├── README.md                # You are here
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Tailwind CSS Setup
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Tailwind CSS was used with custom `@apply` utilities extracted into reusable `.css` files inside `src/assets/styles`.
+
+To use `@apply`, follow [Tailwind’s official guide on `@apply`](https://tailwindcss.com/docs/reusing-styles#extracting-classes-with-apply).
+
+Example:
+```css
+/* styles/button.css */
+.btn-primary {
+  @apply bg-blue-600 text-white px-4 py-2 rounded;
+}
 ```
+
+Then imported in `index.css`:
+```css
+@import './assets/styles/button.css';
+```
+
+---
+
+## Scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm install` | Install dependencies |
+| `npm run dev` | Run Vite dev server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build locally |
+
+---
+
+## Deployment
+
+The app is deployed using Vercel with SPA rewrites for all routes. Routing is handled entirely by React Router.
+
+---
+
+## Useful Links
+
+- [Tailwind CSS Docs](https://tailwindcss.com/)
+- [Vite Docs](https://vitejs.dev/)
+- [React Router Docs](https://reactrouter.com/en/main)
+- [Apollo Client Docs](https://www.apollographql.com/docs/react/)
+
+---
