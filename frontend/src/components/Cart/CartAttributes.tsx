@@ -33,7 +33,7 @@ function CartAttributes({ attributes }: Props) {
                       style={{ backgroundColor: itemOpt.value }}
                       title={itemOpt.displayValue}
                       data-testid={`${
-                        isSelected ? `cart-item-attribute-${kebabAttr}-${kebabValue}` : ""
+                        isSelected ? `product-attribute-${kebabAttr}-${kebabValue}` : ""
                       }`}
                     />
                   ) : (
@@ -46,7 +46,7 @@ function CartAttributes({ attributes }: Props) {
                       }`}
                       title={itemOpt.displayValue}
                       data-testid={`${
-                        isSelected ? `cart-item-attribute-${kebabAttr}-${kebabValue}` : ""
+                        isSelected ? `product-attribute-${kebabAttr}-${kebabValue}` : ""
                       }`}
                     >
                       {itemOpt.value}

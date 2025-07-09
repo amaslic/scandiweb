@@ -101,7 +101,7 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
                     .replace(/\s+/g, "-");
                     return (
                       <button
-                        data-testid={`product-attribute-${kebabAttr}-${kebabValue}`}
+                       // data-testid={`product-attribute-${kebabAttr}-${kebabValue}`}
                         key={item.value}
                         onClick={() =>
                           handleSelectAttribute(attr.id, item.value)
