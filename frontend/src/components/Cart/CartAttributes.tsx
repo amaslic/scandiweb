@@ -17,9 +17,9 @@ function CartAttributes({ attributes }: Props) {
             <div className="flex gap-2">
               {attr.items &&
                 attr.items.map((itemOpt: AttributeItem) => {
-                  /* const kebabValue = itemOpt.value
+                   const kebabValue = itemOpt.value
                     .toLowerCase()
-                    .replace(/\s+/g, "-"); */
+                    .replace(/\s+/g, "-");
                   const isSelected = attr.selectedItem?.value === itemOpt.value;
 
                   return attr.name.toLowerCase() === "color" ? (
@@ -32,7 +32,7 @@ function CartAttributes({ attributes }: Props) {
                       }`}
                       style={{ backgroundColor: itemOpt.value }}
                       title={itemOpt.displayValue}
-                      data-testid={`cart-item-attribute-${kebabAttr}-${kebabAttr}${
+                      data-testid={`cart-item-attribute-${kebabAttr}-${kebabValue}${
                         isSelected ? "-selected" : ""
                       }`}
                     />
@@ -45,7 +45,7 @@ function CartAttributes({ attributes }: Props) {
                           : "border border-gray-300"
                       }`}
                       title={itemOpt.displayValue}
-                      data-testid={`cart-item-attribute-${kebabAttr}-${kebabAttr}${
+                      data-testid={`cart-item-attribute-${kebabAttr}-${kebabValue}${
                         isSelected ? "-selected" : ""
                       }`}
                     >
