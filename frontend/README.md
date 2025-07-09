@@ -56,6 +56,35 @@ Then imported in `index.css`:
 
 ---
 
+## Local Setup
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Copy environment file:
+   ```bash
+   cp .env.example .env
+   ```
+   This will prepare environment variables required for the app to run locally.
+
+3. Make sure your local `vite.config.ts` contains the following proxy setup:
+   ```ts
+   server: {
+     proxy: {
+       '/graphql': 'http://localhost:8000', // your backend server
+     },
+   },
+   ```
+
+4. Start development server:
+   ```bash
+   npm run dev
+   ```
+
+---
+
 ## Scripts
 
 | Script | Description |
@@ -79,5 +108,3 @@ The app is deployed using Vercel with SPA rewrites for all routes. Routing is ha
 - [Vite Docs](https://vitejs.dev/)
 - [React Router Docs](https://reactrouter.com/en/main)
 - [Apollo Client Docs](https://www.apollographql.com/docs/react/)
-
----
