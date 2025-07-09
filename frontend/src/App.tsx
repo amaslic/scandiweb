@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="app-wrapper">
-      <Header onCartClick={() => setCartOpen(true)} />
+      <Header onCartClick={() => setCartOpen((old) => !old)} />
 
       {/* Cart */}
       {cartOpen && <Cart onClose={() => setCartOpen(false)} />}
