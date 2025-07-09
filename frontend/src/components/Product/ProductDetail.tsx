@@ -79,9 +79,7 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
   return (
     <div className="product-container">
       <div className="product-grid">
-        <div data-testid="product-gallery">
-          <ProductGallery images={product.gallery} />
-        </div>
+        <ProductGallery images={product.gallery} />
 
         <div className="product-section">
           <h1 className="product-title">{product.name}</h1>
