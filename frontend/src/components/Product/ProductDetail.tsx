@@ -96,9 +96,9 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
                   {attr.items.map((item) => {
                     const isSelected =
                       selectedAttributes[attr.id] === item.value;
-                     const kebabValue = item.value
+                    /* const kebabValue = item.value
                     .toLowerCase()
-                    .replace(/\s+/g, "-");
+                    .replace(/\s+/g, "-");*/
                     return (
                       <button
                        // data-testid={`product-attribute-${kebabAttr}-${kebabValue}`}
