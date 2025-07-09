@@ -5,7 +5,6 @@ interface Props {
 }
 
 function CartAttributes({ attributes }: Props) {
- 
   return (
     <div className="cart-attribute-block">
       {attributes.map((attr, index) => {
@@ -17,7 +16,7 @@ function CartAttributes({ attributes }: Props) {
             <div className="flex gap-2">
               {attr.items &&
                 attr.items.map((itemOpt: AttributeItem) => {
-                   const kebabValue = itemOpt.value
+                  const kebabValue = itemOpt.value
                     .toLowerCase()
                     .replace(/\s+/g, "-");
                   const isSelected = attr.selectedItem?.value === itemOpt.value;
@@ -32,8 +31,8 @@ function CartAttributes({ attributes }: Props) {
                       }`}
                       style={{ backgroundColor: itemOpt.value }}
                       title={itemOpt.displayValue}
-                      data-testid={`${
-                        isSelected ? `product-attribute-${kebabAttr}-${kebabValue}` : ""
+                      data-testid={`cart-item-attribute-${kebabAttr}-${kebabValue}${
+                        isSelected ? "-selected" : ""
                       }`}
                     />
                   ) : (
@@ -45,8 +44,8 @@ function CartAttributes({ attributes }: Props) {
                           : "border border-gray-300"
                       }`}
                       title={itemOpt.displayValue}
-                      data-testid={`${
-                        isSelected ? `product-attribute-${kebabAttr}-${kebabValue}` : ""
+                      data-testid={`cart-item-attribute-${kebabAttr}-${kebabValue}${
+                        isSelected ? "-selected" : ""
                       }`}
                     >
                       {itemOpt.value}
