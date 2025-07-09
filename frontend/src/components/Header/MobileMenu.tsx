@@ -16,7 +16,7 @@ export default function MobileMenu({
     <div className="mobile-menu">
       {categories.map((cat) => {
         const slug = cat.name.toLowerCase();
-        const link = slug === "all" ? "/" : `/${slug}`;
+        const link = `/${slug}`;
         const isActive = activeCategory === slug;
 
         return (

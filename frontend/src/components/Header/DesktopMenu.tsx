@@ -6,22 +6,21 @@ interface Props {
   activeCategory: string;
 }
 
-export default function DesktopMenu({
-  categories,
-  activeCategory,
-}: Props) {
+export default function DesktopMenu({ categories, activeCategory }: Props) {
   return (
     <nav className="nav-desktop">
       {categories.map((cat) => {
         const slug = cat.name.toLowerCase();
-        const link = slug === "all" ? "/" : `/${slug}`;
+        const link = `/${slug}`;
         const isActive = activeCategory === slug;
 
         return (
           <Link
             key={cat.id}
             to={link}
-            className={`nav-button ${isActive ? "nav-button-active" : "nav-button-inactive"}`}
+            className={`nav-button ${
+              isActive ? "nav-button-active" : "nav-button-inactive"
+            }`}
             data-testid={isActive ? "active-category-link" : "category-link"}
           >
             {cat.name}
