@@ -5,6 +5,7 @@ import {
   type PlaceOrderResponse,
   type PlaceOrderVariables,
 } from "../queries/placeOrderMutation";
+import type { AttributeSet } from "../types/Attribute";
 
 export const usePlaceOrder = () => {
   const { items, emptyCart } = useCart();
@@ -18,10 +19,10 @@ export const usePlaceOrder = () => {
     const formattedItems = items.map((item) => ({
       sku: item.sku,
       qty: item.quantity ?? 1,
-      attributes: item.attributes.map((attr: any) => ({
+      attributes: item.attributes.map((attr: AttributeSet) => ({
         id: attr.id,
-        value: attr.selectedItem.value,
-        display_value: attr.selectedItem.displayValue,
+        value: attr.selectedItem?.value,
+        display_value: attr.selectedItem?.displayValue,
       })),
     }));
 

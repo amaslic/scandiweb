@@ -1,10 +1,11 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import ProductList from "./components/ProductsList";
 import Cart from "./components/Cart/Cart";
 import ProductDetail from "./components/Product/ProductDetail";
 import { useState } from "react";
 import Header from "./components/Header/Header";
 import { ToastRoot } from "./components/ToastHandler";
+import NotFound from "./components/NotFound/404";
 
 function App() {
   const [cartOpen, setCartOpen] = useState(false);
@@ -23,9 +24,20 @@ function App() {
         }`}
       >
         <Routes>
-          <Route path="/" element={<ProductList onAddToCart={() => setCartOpen(true)} />} />
-          <Route path="/category/:name" element={<ProductList onAddToCart={() => setCartOpen(true)} />} />
-          <Route path="/product/:sku" element={<ProductDetail onAddToCart={() => setCartOpen(true)} />} />
+          <Route
+            path="/"
+            element={<ProductList onAddToCart={() => setCartOpen(true)} />}
+          />
+          <Route
+            path="/category/:name"
+            element={<ProductList onAddToCart={() => setCartOpen(true)} />}
+          />
+          <Route
+            path="/product/:sku"
+            element={<ProductDetail onAddToCart={() => setCartOpen(true)} />}
+          />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/404" replace />} />
         </Routes>
       </main>
 

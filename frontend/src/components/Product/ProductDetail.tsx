@@ -7,6 +7,8 @@ import type { Product } from "../../types/Product";
 import { GET_PRODUCT_BY_SKU } from "../../queries/getProducts";
 import ProductGallery from "./ProductGallery";
 import ToastHandler from "../ToastHandler";
+import ProductNotFound from "../NotFound/ProductNotFound";
+import Loader from "../Loader/Loader";
 
 function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
   const { sku } = useParams<{ sku: string }>();
@@ -21,8 +23,8 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
     [attrId: string]: string;
   }>({});
 
-  if (loading) return <p>Loading...</p>;
-  if (error || !data?.product) return <p>Product not found.</p>;
+  if (loading) return <Loader />;
+  if (error || !data?.product) return <ProductNotFound />;
 
   const product = data.product;
 
@@ -132,8 +134,7 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
           <div>
             <h2 className="product-price-label">Price:</h2>
             <p className="product-price-value">
-              {price.currency.symbol}{" "}
-              {price.amount.toFixed(2)}
+              {price.currency.symbol} {price.amount.toFixed(2)}
             </p>
           </div>
 

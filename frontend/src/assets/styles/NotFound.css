@@ -1,0 +1,21 @@
+@layer components {
+  .notfound-container {
+    @apply flex flex-col items-center justify-center h-full w-full text-center;
+  }
+
+  .notfound-title {
+    @apply text-6xl font-bold text-red-600 mb-4;
+  }
+
+  .notfound-subtitle {
+    @apply text-2xl font-semibold text-gray-800 mb-2;
+  }
+
+  .notfound-highlight {
+    @apply text-blue-600;
+  }
+
+  .notfound-message {
+    @apply text-gray-600;
+  }
+}

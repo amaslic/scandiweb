@@ -8,5 +8,6 @@ export interface AttributeSet {
   id: string;
   name: string;
   type: string;
+  selectedItem?: AttributeItem,
   items: AttributeItem[];
 }

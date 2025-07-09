@@ -1,10 +1,10 @@
 import CartAttributes from "./CartAttributes";
 
 import ToastHandler from "../ToastHandler";
-
+import type { ItemCart } from "../../types/ItemCart";
 
 interface Props {
-  item: any;
+  item: ItemCart,
   onIncrease: () => void;
   onDecrease: () => void;
 }

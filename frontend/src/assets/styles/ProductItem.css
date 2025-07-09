@@ -1,35 +1,37 @@
-.product-list-grid {
-  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 w-full lg:max-w-4xl mx-auto;
-}
+@layer components {
+  .product-list-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 w-full lg:max-w-4xl mx-auto;
+  }
 
-.product-list-item {
-  @apply relative block bg-white rounded-lg shadow-sm hover:shadow-md transition;
-}
+  .product-list-item {
+    @apply relative block bg-white rounded-lg shadow-sm hover:shadow-md transition;
+  }
 
-.product-image-wrapper {
-  @apply relative h-72 w-full overflow-hidden rounded-t-lg;
-}
+  .product-image-wrapper {
+    @apply relative h-72 w-full overflow-hidden rounded-t-lg;
+  }
 
-.product-image {
-  @apply w-full h-full object-cover object-scale-down;
-}
+  .product-image {
+    @apply w-full h-full object-cover object-scale-down;
+  }
 
-.product-out-of-stock {
-  @apply absolute inset-0 flex items-center justify-center text-gray-700 text-lg font-semibold bg-white/70;
-}
+  .product-out-of-stock {
+    @apply absolute inset-0 flex items-center justify-center text-gray-700 text-lg font-semibold bg-white/70;
+  }
 
-.product-add-button {
-  @apply absolute bottom-2 right-2 p-3 rounded-full bg-green-500 text-white shadow-lg opacity-0 group-hover:opacity-100 transition;
-}
+  .product-add-button {
+    @apply absolute bottom-2 right-2 p-3 rounded-full bg-green-500 text-white shadow-lg opacity-0 group-hover:opacity-100 transition;
+  }
 
-.product-info {
-  @apply p-4;
-}
+  .product-info {
+    @apply p-4;
+  }
 
-.product-name {
-  @apply text-sm font-medium text-gray-900;
-}
+  .product-name {
+    @apply text-sm font-medium text-gray-900;
+  }
 
-.product-price {
-  @apply text-sm text-gray-500 mt-1;
+  .product-price {
+    @apply text-sm text-gray-500 mt-1;
+  }
 }

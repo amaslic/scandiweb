@@ -1,5 +1,7 @@
+import type { AttributeItem, AttributeSet } from "../../types/Attribute";
+
 interface Props {
-  attributes: any[];
+  attributes: AttributeSet[];
 }
 
 function CartAttributes({ attributes }: Props) {
@@ -14,7 +16,7 @@ function CartAttributes({ attributes }: Props) {
             <p className="cart-attribute-label">{attr.name}:</p>
             <div className="flex gap-2">
               {attr.items &&
-                attr.items.map((itemOpt: any) => {
+                attr.items.map((itemOpt: AttributeItem) => {
                   /* const kebabValue = itemOpt.value
                     .toLowerCase()
                     .replace(/\s+/g, "-"); */
