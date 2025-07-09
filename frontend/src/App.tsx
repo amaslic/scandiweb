@@ -24,10 +24,8 @@ function App() {
         }`}
       >
         <Routes>
-          <Route
-            path="/"
-            element={<ProductList onAddToCart={() => setCartOpen(true)} />}
-          />
+          <Route path="/" element={<Navigate to="/all" replace />} />
+       
           <Route
             path="/:name"
             element={<ProductList onAddToCart={() => setCartOpen(true)} />}
