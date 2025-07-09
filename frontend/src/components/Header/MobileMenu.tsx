@@ -1,41 +1,36 @@
+import { Link } from "react-router-dom";
 import type { Category } from "../../types/Category";
 
 interface Props {
   categories: Category[];
   activeCategory: string;
-  setActiveCategory: (cat: string) => void;
   closeMenu: () => void;
 }
 
 export default function MobileMenu({
   categories,
   activeCategory,
-  setActiveCategory,
   closeMenu,
 }: Props) {
   return (
     <div className="mobile-menu">
-      {categories.map((cat) => (
-        <button
-          key={cat.id}
-          onClick={() => {
-            setActiveCategory(cat.name);
-            closeMenu();
-          }}
-          className={`mobile-button ${
-            activeCategory === cat.name
-              ? "mobile-button-active"
-              : "mobile-button-inactive"
-          }`}
-          data-testid={
-            activeCategory === cat.name
-              ? "active-category-link"
-              : "category-link"
-          }
-        >
-          {cat.name}
-        </button>
-      ))}
+      {categories.map((cat) => {
+        const slug = cat.name.toLowerCase();
+        const link = slug === "all" ? "/" : `/${slug}`;
+        const isActive = activeCategory === slug;
+
+        return (
+          <Link
+            key={cat.id}
+            to={link}
+            onClick={closeMenu}
+            className={`nav-button ${isActive ? "nav-button-active" : "nav-button-inactive"}`}
+            data-testid={isActive ? "active-category-link" : "category-link"}
+          >
+            {cat.name}
+          </Link>
+        );
+      })}
     </div>
   );
 }

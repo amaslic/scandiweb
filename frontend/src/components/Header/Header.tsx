@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ShoppingCart, Menu } from "lucide-react";
 import { useCart } from "react-use-cart";
 import { gql, useQuery } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import DesktopMenu from "./DesktopMenu";
 import MobileMenu from "./MobileMenu";
 import type { Category } from "../../types/Category";
@@ -21,37 +21,25 @@ interface Props {
 }
 
 function Header({ onCartClick }: Props) {
-  const [activeCategory, setActiveCategory] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const { items } = useCart();
   const navigate = useNavigate();
-  const { data, loading } = useQuery(GET_CATEGORIES);
+  const location = useLocation();
+
+  const { data } = useQuery(GET_CATEGORIES);
   const categories: Category[] = data?.categories || [];
   const totalItems = items.reduce((sum, item) => sum + (item.quantity ?? 1), 0);
 
-  useEffect(() => {
-    if (!loading && categories.length > 0 && !activeCategory) {
-      setActiveCategory(categories[0].name);
-    }
-  }, [loading, categories, activeCategory]);
-
-  const onMenuItemClick = (cat: Category) => {
-    setActiveCategory(cat.name);
-    navigate(cat.name === "All" ? "/" : `/${cat.name}`);
-  };
+  const currentPath =
+    location.pathname === "/" ? "all" : location.pathname.slice(1);
 
   const onClickLogo = () => {
-    setActiveCategory(categories[0].name);
     navigate("/");
   };
 
   return (
     <header className="header-container">
-      <DesktopMenu
-        categories={categories}
-        activeCategory={activeCategory}
-        onMenuItemClick={onMenuItemClick}
-      />
+      <DesktopMenu categories={categories} activeCategory={currentPath} />
 
       <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>
         <Menu />
@@ -89,8 +77,7 @@ function Header({ onCartClick }: Props) {
       {menuOpen && (
         <MobileMenu
           categories={categories}
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
+          activeCategory={currentPath}
           closeMenu={() => setMenuOpen(false)}
         />
       )}

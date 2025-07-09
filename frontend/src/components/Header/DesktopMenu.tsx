@@ -1,36 +1,33 @@
+import { Link } from "react-router-dom";
 import type { Category } from "../../types/Category";
 
 interface Props {
   categories: Category[];
   activeCategory: string;
-  onMenuItemClick: (cat: Category) => void;
 }
 
 export default function DesktopMenu({
   categories,
   activeCategory,
-  onMenuItemClick,
 }: Props) {
   return (
     <nav className="nav-desktop">
-      {categories.map((cat) => (
-        <button
-          key={cat.id}
-          onClick={() => onMenuItemClick(cat)}
-          className={`nav-button ${
-            activeCategory === cat.name
-              ? "nav-button-active"
-              : "nav-button-inactive"
-          }`}
-          data-testid={
-            activeCategory === cat.name
-              ? "active-category-link"
-              : "category-link"
-          }
-        >
-          {cat.name}
-        </button>
-      ))}
+      {categories.map((cat) => {
+        const slug = cat.name.toLowerCase();
+        const link = slug === "all" ? "/" : `/${slug}`;
+        const isActive = activeCategory === slug;
+
+        return (
+          <Link
+            key={cat.id}
+            to={link}
+            className={`nav-button ${isActive ? "nav-button-active" : "nav-button-inactive"}`}
+            data-testid={isActive ? "active-category-link" : "category-link"}
+          >
+            {cat.name}
+          </Link>
+        );
+      })}
     </nav>
   );
 }
