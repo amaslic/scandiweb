@@ -16,9 +16,7 @@ function CartAttributes({ attributes }: Props) {
             <div className="flex gap-2">
               {attr.items &&
                 attr.items.map((itemOpt: AttributeItem) => {
-                  const kebabValue = itemOpt.value
-                    .toLowerCase()
-                    .replace(/\s+/g, "-");
+                  const kebabValue = itemOpt.value.replace(/\s+/g, "-");
                   const isSelected = attr.selectedItem?.value === itemOpt.value;
 
                   return attr.name.toLowerCase() === "color" ? (

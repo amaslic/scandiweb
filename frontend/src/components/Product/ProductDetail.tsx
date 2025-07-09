@@ -86,7 +86,7 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
 
           {product.attributes.map((attr) => {
             const kebabAttr = attr.name.toLowerCase().replace(/\s+/g, "-");
-           
+
             const isColorAttr = attr.name.toLowerCase() === "color";
 
             return (
@@ -96,11 +96,9 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
                   {attr.items.map((item) => {
                     const isSelected =
                       selectedAttributes[attr.id] === item.value;
-                     const kebabValue = item.value
-                    .toLowerCase()
-                    .replace(/\s+/g, "-");
+                    const kebabValue = item.value.replace(/\s+/g, "-");
                     return (
-                      <button
+                      <div
                         data-testid={`product-attribute-${kebabAttr}-${kebabValue}`}
                         key={item.value}
                         onClick={() =>
@@ -125,7 +123,7 @@ function ProductDetail({ onAddToCart }: { onAddToCart: () => void }) {
                         }
                       >
                         {!isColorAttr && item.value}
-                      </button>
+                      </div>
                     );
                   })}
                 </div>
