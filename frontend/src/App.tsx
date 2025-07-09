@@ -29,7 +29,7 @@ function App() {
             element={<ProductList onAddToCart={() => setCartOpen(true)} />}
           />
           <Route
-            path="/category/:name"
+            path="/:name"
             element={<ProductList onAddToCart={() => setCartOpen(true)} />}
           />
           <Route

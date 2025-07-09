@@ -11,7 +11,7 @@ function Cart({ onClose }: Props) {
   const { isEmpty, items, updateItemQuantity, cartTotal } = useCart();
 
   return (
-    <div className="cart-container">
+    <div className="cart-container" data-testid="cart-overlay">
       <CartHeader
         itemCount={items.reduce(
           (total, item) => total + (item.quantity ?? 1),

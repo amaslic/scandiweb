@@ -37,7 +37,7 @@ function Header({ onCartClick }: Props) {
 
   const onMenuItemClick = (cat: Category) => {
     setActiveCategory(cat.name);
-    navigate(cat.name === "All" ? "/" : `/category/${cat.name}`);
+    navigate(cat.name === "All" ? "/" : `/${cat.name}`);
   };
 
   const onClickLogo = () => {
